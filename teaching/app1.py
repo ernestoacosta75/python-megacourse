@@ -22,12 +22,20 @@ def translate(word):
         answer = input("Did you mean {} instead? [Y/N]: ".format(get_close_matches(word, data.keys())[0].lower()))
 
         if answer == "Y":
-            return data[get_close_matches(word, data.keys())[0].lower()]
+            return data[get_close_matches(word, data.keys())[0]]
         elif answer == "N":
             return "The word doesn't exist. Please, double check it."
+        else:
+            return "We didn't understand your answer."
     else:
         return "The word doesn't exist. Please, double check it."
 
 word = input("Enter a word: ")
 
-print(translate(word))
+output = translate(word)
+
+if type(output) == str:
+    print(output)
+else:
+    for item in output:
+        print(item)
