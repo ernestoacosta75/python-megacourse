@@ -25,14 +25,12 @@ def color_producer(elevation):
 
 
 for lt, ln, name, elev in zip(latList, lonList, nameList, elevList):    #Iterating both list to fill the FeatureGroup of points
-    fg.add_child(folium.Marker(location=[lt, ln], popup=name, icon=folium.Icon(color=color_producer(elev))))
-
-
-# Adding a GeoJson Polygon layer
-fg.add_child(folium.GeoJson(data=open('world.json', 'r', encoding='utf-8-sig').read(),
-                            style_function=lambda x: {"fillColor": "green" if x["properties"]["POP2005"] < 10000000
-                            else 'orange' if 10000000 <= x["properties"]["POP2005"] < 20000000
-                            else 'red'}))
+    fg.add_child(folium.CircleMarker(location=[lt, ln],
+                                     radius=9,
+                                     popup=name,
+                                     fill_color=color_producer(elev),
+                                     color='grey',
+                                     fill_opacity=0.8))
 
 map.add_child(fg)
 
