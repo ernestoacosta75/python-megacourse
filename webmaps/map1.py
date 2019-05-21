@@ -1,11 +1,6 @@
 import folium
 import pandas
 
-map = folium.Map(location = [38.58, -99.09], zoom_start=6, tiles= "Mapbox Bright")  # Creating the Map object
-
-# Adding some points markers on top of the base map
-fg = folium.FeatureGroup(name="My Map")
-
 dataFrame = pandas.read_csv("Volcanoes.txt") #Reading .csv file into a DataFrame
 
 latList = list(dataFrame["LAT"]) #Getting the LAT colum values in a list
@@ -23,29 +18,37 @@ def color_producer(elevation):
     else:
         return 'red'
 
+map = folium.Map(location = [38.58, -99.09], zoom_start=6, tiles= "Mapbox Bright")  # Creating the Map object
+
+# Adding some points markers on top of the base map
+fgv = folium.FeatureGroup(name="Volcanoes")    # FeatureGroup fro volcanoes
 
 for lt, ln, name, elev in zip(latList, lonList, nameList, elevList):    #Iterating both list to fill the FeatureGroup of points
-    fg.add_child(folium.Marker(location=[lt, ln], popup=name, icon=folium.Icon(color=color_producer(elev))))
+    #fg.add_child(folium.Marker(location=[lt, ln], popup=name, icon=folium.Icon(color=color_producer(elev))))
+    fgv.add_child(folium.CircleMarker(location=[lt, ln],
+                                     radius=9,
+                                     popup=name,
+                                     fill_color=color_producer(elev),
+                                     color='grey',
+                                     fill_opacity=0.8))
 
+
+fgp = folium.FeatureGroup(name="Population")    # FeatureGroup fro volcanos
 
 # Adding a GeoJson Polygon layer
-fg.add_child(folium.GeoJson(data=open('world.json', 'r', encoding='utf-8-sig').read(),
+fgp.add_child(folium.GeoJson(data=open('world.json', 'r', encoding='utf-8-sig').read(),
                             style_function=lambda x: {"fillColor": "green" if x["properties"]["POP2005"] < 10000000
                             else 'orange' if 10000000 <= x["properties"]["POP2005"] < 20000000
                             else 'red'}))
 
-map.add_child(fg)
+map.add_child(fgv)
+map.add_child(fgp)
+
+# Adding the LayerControl
+map.add_child(folium.LayerControl())
 
 map.save("Map1.html") # Saving it as HTML file
 
-
-'''
-for coordinates in [[38.2, -99.1], [39.2, -97.1]]:
-    fg.add_child(folium.Marker(location=coordinates, popup="Hi I am a Marker", icon=folium.Icon(color='green')))
-
-map.add_child(fg)
-
-map.save("Map1.html") # Saving it as HTML file '''
 
 
 
