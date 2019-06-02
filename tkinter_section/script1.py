@@ -3,6 +3,7 @@ This script allows to build e GUI using the
 Tkinter library.
 @author Rodriguez Acosta Ernesto Antonio
 '''
+
 from tkinter import *
 
 window = Tk()
