@@ -45,8 +45,27 @@ def view():
 
     return store_db_data    # The variable is returned as a list
 
+def delete(item):
+    db_connection = sqlite3.connect("lite.db")
+    cursor = db_connection.cursor()
+    cursor.execute("DELETE FROM store WHERE item = ?", (item,))
+
+    db_connection.commit()
+    db_connection.close()
+
+def update(item, quantity):
+    db_connection = sqlite3.connect("lite.db")
+    cursor = db_connection.cursor()
+    cursor.execute("UPDATE store SET quantity = ? WHERE item = ? ", (quantity, item))
+
+    db_connection.commit()
+    db_connection.close()
+
+
 
 create_table()
-insert_data("Water Glass", 10, 5)
-insert_data("Steel Glass", 11, 5.50)
+#insert_data("Water Glass", 10, 5)
+#insert_data("Steel Glass", 11, 5.50)
+#delete('Wine Glass')
+update('Water Glass', 11)
 print(view())
