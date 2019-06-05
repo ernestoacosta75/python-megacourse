@@ -7,6 +7,7 @@ SQLite database.
 import sqlite3
 
 def create_table():
+
     #1) Create the database connection
     #   - If we don't have the database file yet, it will be created
     #     by this line of code and the connection will be established.
