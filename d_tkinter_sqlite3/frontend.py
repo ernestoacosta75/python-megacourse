@@ -46,7 +46,7 @@ author_data = StringVar()
 author_entry = Entry(window, textvariable=author_data)
 author_entry.grid(row=0, column=3)
 
-isbn_data = StringVar()
+isbn_data = IntVar()
 isbn_entry = Entry(window, textvariable=isbn_data)
 isbn_entry.grid(row=1, column=3)
 
