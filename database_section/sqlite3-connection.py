@@ -64,6 +64,7 @@ def update(item, quantity):
 
 
 create_table()
+
 #insert_data("Water Glass", 10, 5)
 #insert_data("Steel Glass", 11, 5.50)
 #delete('Wine Glass')
