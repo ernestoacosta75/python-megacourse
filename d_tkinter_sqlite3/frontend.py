@@ -21,21 +21,22 @@ import backend
 
 
 def get_selected_row(event):
-    global selected_tuple
-    index = books_listbox.curselection()[0]
-    selected_tuple = books_listbox.get(index)
+    try:
+        global selected_tuple
+        index = books_listbox.curselection()[0]
+        selected_tuple = books_listbox.get(index)
 
-    title_entry.delete(0, END)
-    author_entry.delete(0, END)
-    year_entry.delete(0, END)
-    isbn_entry.delete(0, END)
+        title_entry.delete(0, END)
+        author_entry.delete(0, END)
+        year_entry.delete(0, END)
+        isbn_entry.delete(0, END)
 
-    title_entry.insert(END, selected_tuple[1])
-    author_entry.insert(END, selected_tuple[2])
-    year_entry.insert(END, selected_tuple[3])
-    isbn_entry.insert(END, selected_tuple[4])
-
-
+        title_entry.insert(END, selected_tuple[1])
+        author_entry.insert(END, selected_tuple[2])
+        year_entry.insert(END, selected_tuple[3])
+        isbn_entry.insert(END, selected_tuple[4])
+    except IndexError:
+        pass
 '''
 Wrapper function for the backend's view function.
 '''
