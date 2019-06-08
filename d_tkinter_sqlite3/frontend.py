@@ -153,7 +153,7 @@ update_btn.grid(row=5, column=3)
 delete_btn = Button(window, text="Delete", width=12, command=delete_command)
 delete_btn.grid(row=6, column=3)
 
-close_btn = Button(window, text="Close", width=12)
+close_btn = Button(window, text="Close", width=12, command=window.destroy)
 close_btn.grid(row=7, column=3)
 
 window.mainloop()
