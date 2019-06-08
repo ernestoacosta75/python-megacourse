@@ -89,7 +89,7 @@ def update_command():
 
 
 window = Tk()
-window.title("Book Store")
+window.wm_title("Book Store")
 window.geometry("")
 
 # Creating the labels
