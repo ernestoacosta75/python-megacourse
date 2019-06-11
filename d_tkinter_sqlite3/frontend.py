@@ -17,7 +17,9 @@ Close
 from tkinter import *
 from tkinter import messagebox
 
-import backend
+from backend import Database
+
+database = Database('books.db')
 
 
 def get_selected_row(event):
@@ -38,53 +40,53 @@ def get_selected_row(event):
     except IndexError:
         pass
 '''
-Wrapper function for the backend's view function.
+Wrapper function for the database's view function.
 '''
 def view_command():
     books_listbox.delete(0, END)        # Cleaning the list box content
-    for row in backend.view():
+    for row in database.view():
         books_listbox.insert(END, row)
 
 '''
-Wrapper function for the backend's search function.
+Wrapper function for the database's search function.
 '''
 def search_command():
     books_listbox.delete(0, END)
 
-    for row in backend.search(title_data.get(), author_data.get(), year_data.get(), isbn_data.get()):
+    for row in database.search(title_data.get(), author_data.get(), year_data.get(), isbn_data.get()):
         books_listbox.insert(END, row)
 
 '''
-Wrapper function for the backend's insert function.
+Wrapper function for the database's insert function.
 '''
 def insert_command():
     books_listbox.delete(0, END)
 
-    books_list = backend.search(title_data.get(), author_data.get(), year_data.get(), isbn_data.get())
+    books_list = database.search(title_data.get(), author_data.get(), year_data.get(), isbn_data.get())
 
     if(len(books_list) == 0):
-        backend.insert(title_data.get(), author_data.get(), year_data.get(), isbn_data.get())
+        database.insert(title_data.get(), author_data.get(), year_data.get(), isbn_data.get())
     else:
         messagebox.showerror("Error", "This book already exists")
 
     view_command()
 
 '''
-Wrapper function for the backend's delete function.
+Wrapper function for the database's delete function.
 '''
 def delete_command():
     if not selected_tuple:
         messagebox.showerror("Error", "Select a valid entry to delete.")
     else:
-        backend.delete(selected_tuple[0])
+        database.delete(selected_tuple[0])
         view_command()
         messagebox.showinfo("Info", "Entry deleted.")
 
 '''
-Wrapper function for the backend's update function.
+Wrapper function for the database's update function.
 '''
 def update_command():
-    backend.update(selected_tuple[0], title_data.get(), author_data.get(), year_data.get(), isbn_data.get())
+    database.update(selected_tuple[0], title_data.get(), author_data.get(), year_data.get(), isbn_data.get())
     view_command()
     messagebox.showinfo("Info", "Entry updated.")
 

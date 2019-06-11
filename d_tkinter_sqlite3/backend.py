@@ -1,81 +1,73 @@
 import sqlite3
 
-db_name = 'books.db'
+class Database:
+    db_name = ''
 
-'''
-Making the connection to the database.
-'''
-def books_db_connection():
-    book_db_connection = sqlite3.connect(db_name)
-    cursor = book_db_connection.cursor()
-    cursor.execute("CREATE TABLE IF NOT EXISTS book (id INTEGER PRIMARY KEY, title TEXT, author TEXT, year INTEGER, isbn INTEGER)")
-    book_db_connection.commit()
-    book_db_connection.close()
+    '''
+    Making the connection to the database.
+    '''
+    def __init__(self, db_name):
+        self.db_name = db_name
+        connection_database = sqlite3.connect(self.db_name)
+        cursor = connection_database.cursor()
+        cursor.execute("CREATE TABLE IF NOT EXISTS book (id INTEGER PRIMARY KEY, title TEXT, author TEXT, year INTEGER, isbn INTEGER)")
+        connection_database.commit()
+        connection_database.close()
 
-'''
-Inserting a book in the database.
-'''
-def insert(title, author, year, isbn):
-    book_db_connection = sqlite3.connect(db_name)
-    cursor = book_db_connection.cursor()
-    cursor.execute("INSERT INTO book VALUES(NULL, ?, ?, ?, ?)", (title, author, year, isbn))
-    book_db_connection.commit()
-    book_db_connection.close()
+    '''
+    Inserting a book in the database.
+    '''
+    def insert(self, title, author, year, isbn):
+        connection_database = sqlite3.connect(self.db_name)
+        cursor = connection_database.cursor()
+        cursor.execute("INSERT INTO book VALUES(NULL, ?, ?, ?, ?)", (title, author, year, isbn))
+        connection_database.commit()
+        connection_database.close()
 
-'''
-Select all books from the database.
-'''
-def view():
-    book_db_connection = sqlite3.connect(db_name)
-    cursor = book_db_connection.cursor()
-    cursor.execute("SELECT * FROM book")
+    '''
+    Select all books from the database.
+    '''
+    def view(self):
+        connection_database = sqlite3.connect(self.db_name)
+        cursor = connection_database.cursor()
+        cursor.execute("SELECT * FROM book")
 
-    books_list = cursor.fetchall()
+        books_list = cursor.fetchall()
 
-    book_db_connection.close()
+        connection_database.close()
 
-    return books_list
+        return books_list
 
-'''
-Search for a book in the database.
-'''
-def search(title="", author="", year="", isbn=""):
-    book_db_connection = sqlite3.connect(db_name)
-    cursor = book_db_connection.cursor()
-    cursor.execute("SELECT * FROM book WHERE title = ? OR author = ? OR year = ? OR isbn = ?", (title, author, year, isbn))
+    '''
+    Search for a book in the database.
+    '''
+    def search(self, title="", author="", year="", isbn=""):
+        connection_database = sqlite3.connect(self.db_name)
+        cursor = connection_database.cursor()
+        cursor.execute("SELECT * FROM book WHERE title = ? OR author = ? OR year = ? OR isbn = ?", (title, author, year, isbn))
 
-    books_list = cursor.fetchall()
+        books_list = cursor.fetchall()
 
-    book_db_connection.close()
+        connection_database.close()
 
-    return books_list
+        return books_list
 
-'''
-Delete a book in the database.
-'''
-def delete(book_id):
-    book_db_connection = sqlite3.connect(db_name)
-    cursor = book_db_connection.cursor()
-    cursor.execute("DELETE FROM book WHERE id = ?", (book_id,))
-    book_db_connection.commit()
-    book_db_connection.close()
+    '''
+    Delete a book in the database.
+    '''
+    def delete(self, book_id):
+        connection_database = sqlite3.connect(self.db_name)
+        cursor = connection_database.cursor()
+        cursor.execute("DELETE FROM book WHERE id = ?", (book_id,))
+        connection_database.commit()
+        connection_database.close()
 
-'''
-Update a book in the database.
-'''
-def update(id, title, author, year, isbn):
-    book_db_connection = sqlite3.connect(db_name)
-    cursor = book_db_connection.cursor()
-    cursor.execute("UPDATE book SET title = ?, author = ?, year = ?, isbn = ? WHERE id = ?", (title, author, year, isbn, id))
-    book_db_connection.commit()
-    book_db_connection.close()
-
-books_db_connection()
-
-
-#print(view())
-#insert("The Sun", "John Smith", 1918, 913123132)
-#delete(1)
-#update(3, "The moon", "John Smooth", 1917, 99999)
-#print(view())
-#print(search(author='John Smith'))
+    '''
+    Update a book in the database.
+    '''
+    def update(self, id, title, author, year, isbn):
+        connection_database = sqlite3.connect(self.db_name)
+        cursor = connection_database.cursor()
+        cursor.execute("UPDATE book SET title = ?, author = ?, year = ?, isbn = ? WHERE id = ?", (title, author, year, isbn, id))
+        connection_database.commit()
+        connection_database.close()
