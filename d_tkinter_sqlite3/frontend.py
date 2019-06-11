@@ -56,6 +56,9 @@ def search_command():
     for row in database.search(title_data.get(), author_data.get(), year_data.get(), isbn_data.get()):
         books_listbox.insert(END, row)
 
+    if (books_listbox.size() == 0):
+        messagebox.showerror("Error", "There isn't any book that satisfy the search criteria.")
+
 '''
 Wrapper function for the database's insert function.
 '''
@@ -75,7 +78,7 @@ def insert_command():
 Wrapper function for the database's delete function.
 '''
 def delete_command():
-    if not selected_tuple:
+    if not books_listbox.curselection():
         messagebox.showerror("Error", "Select a valid entry to delete.")
     else:
         database.delete(selected_tuple[0])
