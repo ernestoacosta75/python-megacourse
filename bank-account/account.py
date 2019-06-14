@@ -36,8 +36,21 @@ class Account:
 
             print('Actual balance: ' + file.read())
 
-bank_account = Account('balance.txt')
+class CheckingAccount(Account):
+    def __init__(self, filepath, fee):
+        super().__init__(filepath)
+        self.fee = fee
 
-#bank_account.withdraw(100)
+    '''
+        To transfer an amount of money.
+    '''
+    def transfer(self, amount):
+        if(amount > self.balance):
+            pass
+        else:
+            self.balance = self.balance - amount - self.fee
+            self.update_balance()
 
-bank_account.deposit(100)
+checking = CheckingAccount('balance.txt', 1)
+#checking.deposit(10)
+checking.transfer(110)
