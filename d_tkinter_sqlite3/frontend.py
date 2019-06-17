@@ -21,12 +21,12 @@ from backend import Database
 
 database = Database('books.db')
 
-class BookStoreFrontend:
+class BookStoreFrontend(object):
 
-    def __init__(self):
-        window = Tk()
-        window.wm_title("Book Store")
-        window.geometry("")
+    def __init__(self, window):
+        self.window = window
+        self.window.wm_title("Book Store")
+        self.window.geometry("")
 
         # Creating the labels
         title_label = Label(window, text="Title")
@@ -91,8 +91,6 @@ class BookStoreFrontend:
 
         close_btn = Button(window, text="Close", width=12, command=window.destroy)
         close_btn.grid(row=7, column=3)
-
-        window.mainloop()
 
     def get_selected_row(self, event):
         try:
@@ -165,4 +163,6 @@ class BookStoreFrontend:
         self.view_command()
         messagebox.showinfo("Info", "Entry updated.")
 
-bookStore = BookStoreFrontend()
+window = Tk()
+bookStore = BookStoreFrontend(window)
+window.mainloop()

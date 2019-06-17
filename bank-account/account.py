@@ -37,6 +37,10 @@ class Account:
             print('Actual balance: ' + file.read())
 
 class CheckingAccount(Account):
+    """This class generates checking account objects."""
+
+    type = "checking"
+
     def __init__(self, filepath, fee):
         super().__init__(filepath)
         self.fee = fee
@@ -51,6 +55,7 @@ class CheckingAccount(Account):
             self.balance = self.balance - amount - self.fee
             self.update_balance()
 
-checking = CheckingAccount('balance.txt', 1)
+jack_checking = CheckingAccount('balance.txt', 1)
 #checking.deposit(10)
-checking.transfer(110)
+jack_checking.transfer(110)
+print(jack_checking.__doc__)
