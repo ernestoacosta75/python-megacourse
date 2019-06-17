@@ -11,7 +11,7 @@ face_cascade = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
 
 #2) Load the image
 
-image = cv2.imread('photo.jpg')
+image = cv2.imread('news.jpg')
 
 #3) Convert the image to gray scale
 
@@ -19,7 +19,7 @@ gray_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 
 #4) Getting the face coordinates from the image in gray scale
 
-faces = face_cascade.detectMultiScale(gray_image, scaleFactor = 1.05, minNeighbors = 5)
+faces = face_cascade.detectMultiScale(gray_image, scaleFactor = 1.1, minNeighbors = 5)
 
 print(type(faces))
 print(faces)
