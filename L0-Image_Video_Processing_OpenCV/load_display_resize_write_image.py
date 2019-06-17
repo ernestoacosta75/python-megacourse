@@ -38,5 +38,8 @@ print(image.ndim)   # Array dimension
 # Resizing the original image
 resized_image = cv2.resize(image, (int(image.shape[1]/3), int(image.shape[0]/3)))
 cv2.imshow('Galaxy', resized_image)
+
+# Writing a new image
+cv2.imwrite('Galazy_resized.jpg', resized_image)
 cv2.waitKey(0)
 cv2.destroyAllWindows()
